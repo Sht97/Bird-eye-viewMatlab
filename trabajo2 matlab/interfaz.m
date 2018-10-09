@@ -68,7 +68,7 @@ g=a(1:x:end,1:y:end,:);%Crea una matriz g, con elementos de la matriz "a",
 %pero considerando intervalos x y y
 g(g==255)=5.5*255;%Redimensionamos g, donde hayan pixels de valor 255 los 
 %reemplazamos por 5.5*255
-set(handles.cargar,'CData',g);%Asignamos al boton "cargar" en campo CData 
+set(handles.cargar,'CData',g);%Asignacd mos al boton "cargar" en campo CData 
 %los valores de g 
 set(handles.detectar,'CData',g);%Asignamos al boton "detectar" en campo 
 %CData los valores de g 
