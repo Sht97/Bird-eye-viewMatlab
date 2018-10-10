@@ -47,22 +47,22 @@ end
 % --- Executes just before vista is made visible.
 function vista_OpeningFcn(hObject, eventdata, handles, varargin)
 axes(handles.axes1);
-a=imread('Izquierda.jpg');
+a=imread('Izquierda.png');
 axis off;
 imshow(a);
 
 axes(handles.axes2);
-b=imread('Adelante.jpg');
+b=imread('Adelante.png');
 axis off;
 imshow(b);
 
 axes(handles.axes3);
-c=imread('Derecha.jpg');
+c=imread('Derecha.png');
 axis off;
 imshow(c);
 
 axes(handles.axes4);
-d=imread('Atras.jpg');
+d=imread('Atras.png');
 axis off;
 imshow(d);
 
