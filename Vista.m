@@ -52,7 +52,7 @@ axis off;
 imshow(a);
 
 axes(handles.axes2);
-b=imread('Adelante.png');
+b=imread('Adelante1.png');
 axis off;
 imshow(b);
 
@@ -66,7 +66,10 @@ d=imread('Atras.png');
 axis off;
 imshow(d);
 
-set(handles.axes5,'visible','off');
+axes(handles.axes5);
+e=imread('Pajaro.png');
+axis off;
+imshow(e);
 % Choose default command line output for vista
 handles.output = hObject;
 % Update handles structure
