@@ -9,37 +9,11 @@
 %-------David Fernandez    david.fernandez@udea.edu.co -------------------
 %-------Profesor Facultad de Ingenieria BLQ 21-409  -----------------------
 %-------CC 71629489, Tel 2198528,  Wpp 3007106588 -------------------------
-%------- Curso Bï¿½sico de Procesamiento de Imágenes y Visión Artificial---
+%------- Curso Basico de Procesamiento de Imágenes y Visión Artificial---
 %------- Noviembre 16  de 2018---------------------------------------------
 %--------------------------------------------------------------------------
 
 function varargout = vista(varargin)
-% VISTA MATLAB code for vista.fig
-%      VISTA, by itself, creates a new VISTA or raises the existing
-%      singleton*.
-%
-%      H = VISTA returns the handle to a new VISTA or the handle to
-%      the existing singleton*.
-%
-%      VISTA('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in VISTA.M with the given input arguments.
-%
-%      VISTA('Property','Value',...) creates a new VISTA or raises the
-%      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before vista_OpeningFcn gets called.  An
-%      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to vista_OpeningFcn via varargin.
-%
-%      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
-%      instance to run (singleton)".
-%
-% See also: GUIDE, GUIDATA, GUIHANDLES
-
-% Edit the above text to modify the response to help vista
-
-% Last Modified by GUIDE v2.5 14-Nov-2018 12:08:58
-
-% Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
@@ -56,19 +30,17 @@ if nargout
 else
     gui_mainfcn(gui_State, varargin{:});
 end
-% End initialization code - DO NOT EDIT
 
-% --- Executes just before vista is made visible.
 function vista_OpeningFcn(hObject, eventdata, handles, varargin)
 
 %--------------------------------------------------------------------------
 %--1. Carga de elementos del sistema --------------------------------------
 %--------------------------------------------------------------------------
 car=imread('imagen/Car.png');imresize(car,0.1);%Carga imagen del carro en todo el centro
-a=VideoReader('Grabaciones/animacionTrasera.avi');%Carga video del lado de atras
-b=VideoReader('Grabaciones/video.avi');%Carga video de la vista delantera
-c=VideoReader('Grabaciones/AnimacionIzquierda.avi');%Carga video del lado izquierdo
-d=VideoReader('Grabaciones/animacionDerecha.avi');%Carga video del lado derecho
+a=VideoReader('Grabaciones/VidTras.avi');%Carga video del lado de atras
+b=VideoReader('Grabaciones/VidFro.avi');%Carga video de la vista delantera
+c=VideoReader('Grabaciones/VidIzq.avi');%Carga video del lado izquierdo
+d=VideoReader('Grabaciones/VidDer.avi');%Carga video del lado derecho
 
 %--------------------------------------------------------------------------
 %--2. Configuración de camaras
@@ -132,12 +104,14 @@ imshow(car);
 %--------------------------------------------------------------------------
 for w= 1:120%Desde el frame 1 hasta el 120
 %Carga de videos en el frame W y se amplian
+   
+    I = read(a,w);I = imresize(I,2.5);%Carga el video trasero en el frame w y se amplica en 2.5%
+    J = read(b,w);J = imresize(J,2.5);%Carga el video delantero en el frame w y se amplica en 2.5%
+    K = read(c,w);K = imresize(K,2.5);%Carga el video izquierdo en el frame w y se amplica en 2.5%
+    L = read(d,w);L = imresize(L,2.5);%Carga el video derecho en el frame w y se amplica en 2.5%
+    M = read(b,w);
+    N = read(a,w);
     
-    I = readframe(a,w);I = imresize(I,2.5);%Carga el video trasero en el frame w y se amplica en 2.5%
-    J = readframe(b,w);J = imresize(J,2.5);%Carga el video delantero en el frame w y se amplica en 2.5%
-    K = readframe(c,w);K = imresize(K,2.5);%Carga el video izquierdo en el frame w y se amplica en 2.5%
-    L = readframe(d,w);L = imresize(L,2.5);%Carga el video derecho en el frame w y se amplica en 2.5%
-
 %Aplica su transformación birdsEye correspondiente
     B = transformImage(birdsEye,I);B=imrotate(B,-90);%Transformamos la imagen trasera y rotamos a la derecha
     A = transformImage(birdsEye,J);A=imrotate(A,90);%Transformamos la imagen delantera y rotamos a la izquierda
@@ -162,24 +136,20 @@ for w= 1:120%Desde el frame 1 hasta el 120
     axes(handles.axes4);%Selecciona el axe izquierdo
     axis off;
     imshow(C);%Enseñamos en este la imagen izquierda
+    
+    axes(handles.axes10);%Selecciona el axe izquierdo
+    axis off;
+    imshow(M);
+    
+    axes(handles.axes11);%Selecciona el axe izquierdo
+    axis off;
+    imshow(N);
 end%Fin del loop
-
-
-
-
-% Choose default command line output for vista
 handles.output = hObject;
-% Update handles structure
+
 guidata(hObject, handles);
 
 
-
-% --- Outputs from this function are returned to the command line.
 function varargout = vista_OutputFcn(hObject, eventdata, handles) 
-% varargout  cell array for returning output args (see VARARGOUT);
-% hObject    handle to figure
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
 
-% Get default command line output from handles structure
 varargout{1} = handles.output;
